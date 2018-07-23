@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pie</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        .item {
+            position: absolute;
+            left: 210px;
+            top: 610px;
+            text-decoration: none;
+            list-style: none;
+            display: inline;
+            font-size: 55px;
+            font-weight: bold;
+            color: #3598db;
+        }
+
+        .item-cont {
+            position: absolute;
+            left: 205px;
+            top: 700px;
+            font-size: 48px;
+            color: #ccc;
+        }
+
+        .item-degree li {
+            float: left;
+            margin: 50px 52px;
+        }
+
+        .item-cont li {
+            float: left;
+            margin: 50px 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" style="width:1000px;height:800px;"></div>
+    <div>
+        <ul class="item item-degree">
+            <li>72</li>
+            <li>95</li>
+            <li>41</li>
+        </ul>
+        <ul class="item item-cont">
+            <li>平均分</li>
+            <li>最高分</li>
+            <li>最低分</li>
+        </ul>
+    </div>
+    <script src="./echarts.min.js"></script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'))
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    startAngle: -10,
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '70',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: [
+                        { value: 84, name: '84%  及格' },
+                        { value: 16, name: '16% 不及格' }
+                    ],
+                    itemStyle: {
+                        //通常情况下：
+                        normal: {
+                            //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                            color: function (params) {
+                                var colorList = ['rgba(53,152,219,1)', 'rgba(200,200,200,1)'];
+                                return colorList[params.dataIndex];
+                            },
+                        }
+                    },
+                }
+            ]
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+
+</html>
